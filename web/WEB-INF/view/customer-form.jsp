@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Save Customer</title>
@@ -26,6 +27,7 @@
 <div id="container">
     <h3>Save Customer</h3>
     <form:form action="saveCustomer" modelAttribute="customer" method="post">
+        <form:hidden path="id"/>
         <table>
             <tbody>
             <tr>
