@@ -1,6 +1,8 @@
 package krd.antonov.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -20,4 +22,12 @@ public class CRMLoggingAspect {
 
     @Pointcut("execution(* krd.antonov.dao.*.*(..))")
     private void forDaoPackage() {}
+
+    @Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage()")
+    private void forAppFlow(){}
+
+    @Before("forAppFlow()")
+    public void before(JoinPoint joinPoint){
+        logger.info("=====>> in @Before: calling method" + joinPoint.getSignature().toShortString());
+    }
 }
