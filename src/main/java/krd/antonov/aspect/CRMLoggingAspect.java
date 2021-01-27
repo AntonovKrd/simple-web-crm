@@ -29,5 +29,9 @@ public class CRMLoggingAspect {
     @Before("forAppFlow()")
     public void before(JoinPoint joinPoint){
         logger.info("=====>> in @Before: calling method" + joinPoint.getSignature().toShortString());
+        for (Object arg :
+                joinPoint.getArgs()) {
+            logger.info("=====>> with argument: " + arg);
+        }
     }
 }
