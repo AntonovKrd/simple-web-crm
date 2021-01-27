@@ -1,6 +1,7 @@
 package krd.antonov.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -28,10 +29,16 @@ public class CRMLoggingAspect {
 
     @Before("forAppFlow()")
     public void before(JoinPoint joinPoint){
-        logger.info("=====>> in @Before: calling method" + joinPoint.getSignature().toShortString());
+        logger.info("=====>> in @Before: calling method " + joinPoint.getSignature().toShortString());
         for (Object arg :
                 joinPoint.getArgs()) {
             logger.info("=====>> with argument: " + arg);
         }
+    }
+
+    @AfterReturning(pointcut = "forAppFlow()", returning = "result")
+    public void afterReturning(JoinPoint joinPoint, Object result){
+        logger.info("=====>> in @AfterReturning: from method: " + joinPoint.getSignature().toShortString());
+        logger.info("=====>> result: " + result);
     }
 }
