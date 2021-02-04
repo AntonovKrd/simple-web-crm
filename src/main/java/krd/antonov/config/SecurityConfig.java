@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/**").hasRole("DEVELOPER")

@@ -4,10 +4,7 @@ import krd.antonov.entity.Customer;
 import krd.antonov.rest.exception.CustomerNotFoundException;
 import krd.antonov.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,12 @@ public class CustomerRestController {
         Customer customer = customerService.getCustomer(customerID);
         if (customer == null)
             throw new CustomerNotFoundException("Customer id not found - " + customerID);
+        return customer;
+    }
+
+    @PostMapping("/customers")
+    public Customer addCustomer(@RequestBody Customer customer) {
+        customerService.saveCustomer(customer);
         return customer;
     }
 }
