@@ -16,19 +16,27 @@ public class CRMLoggingAspect {
     private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Pointcut("execution(* krd.antonov.controllers.*.*(..))")
-    private void forControllerPackage() {}
+    private void forControllerPackage() {
+    }
 
     @Pointcut("execution(* krd.antonov.service.*.*(..))")
-    private void forServicePackage() {}
+    private void forServicePackage() {
+    }
 
     @Pointcut("execution(* krd.antonov.dao.*.*(..))")
-    private void forDaoPackage() {}
+    private void forDaoPackage() {
+    }
 
-    @Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage()")
-    private void forAppFlow(){}
+    @Pointcut("execution(* krd.antonov.rest.*.*(..))")
+    private void forRestPackage() {
+    }
+
+    @Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage() || forRestPackage()")
+    private void forAppFlow() {
+    }
 
     @Before("forAppFlow()")
-    public void before(JoinPoint joinPoint){
+    public void before(JoinPoint joinPoint) {
         logger.info("=====>> in @Before: calling method " + joinPoint.getSignature().toShortString());
         for (Object arg :
                 joinPoint.getArgs()) {
