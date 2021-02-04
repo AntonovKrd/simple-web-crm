@@ -50,7 +50,7 @@
         </table>
     </form:form>
     <p>
-        <a href="${pageContext.request.contextPath}/customer/list">Back To List</a>
+        <a href="${pageContext.request.contextPath}/">Back To List</a>
     </p>
 </div>
 </body>

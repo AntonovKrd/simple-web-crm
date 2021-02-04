@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -18,7 +17,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String listCustomers(Model model) {
         model.addAttribute("customers", customerService.getCustomers());
         return "list-customers";
@@ -34,7 +33,7 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
         customerService.saveCustomer(customer);
-        return "redirect:/customer/list";
+        return "redirect:/";
     }
 
     @GetMapping("/updateCustomer")
@@ -47,6 +46,6 @@ public class CustomerController {
     @GetMapping("/deleteCustomer")
     public String deleteCustomer(@RequestParam("customerId") Long id) {
         customerService.deleteCustomer(id);
-        return "redirect:/customer/list";
+        return "redirect:/";
     }
 }

@@ -25,7 +25,7 @@
     <div id="content">
         <input type="button" value="Add Customer"
                onclick="window.location.href='addCustomer'; return false;"
-               class="add-button">
+               class="button">
         <table>
             <tr>
                 <th>First Name</th>
@@ -34,10 +34,10 @@
                 <th>Action</th>
             </tr>
             <c:forEach var="tempCustomer" items="${customers}">
-                <c:url var="updateLink" value="/customer/updateCustomer">
+                <c:url var="updateLink" value="/updateCustomer">
                     <c:param name="customerId" value="${tempCustomer.id}"/>
                 </c:url>
-                <c:url var="deleteLink" value="/customer/deleteCustomer">
+                <c:url var="deleteLink" value="/deleteCustomer">
                     <c:param name="customerId" value="${tempCustomer.id}"/>
                 </c:url>
                 <tr>
