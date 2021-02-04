@@ -30,6 +30,8 @@ import java.util.logging.Logger;
 @EnableAspectJAutoProxy
 public class AppConfig implements WebMvcConfigurer {
 
+    private final Logger logger = Logger.getLogger(getClass().getName());
+
     private final Environment env;
 
     @Autowired
@@ -37,7 +39,10 @@ public class AppConfig implements WebMvcConfigurer {
         this.env = env;
     }
 
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    @Autowired
+    public CRMLoggingAspect loggingAspect () {
+        return new CRMLoggingAspect();
+    }
 
     @Bean
     public ViewResolver viewResolver() {
@@ -45,22 +50,6 @@ public class AppConfig implements WebMvcConfigurer {
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
-    }
-
-    @Bean
-    public CRMLoggingAspect loggingAspect () {
-        return new CRMLoggingAspect();
-    }
-
-    @Bean
-    public FilterRegistrationBean<CharacterEncodingFilter> filterRegistrationBean() {
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-        FilterRegistrationBean<CharacterEncodingFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(filter);
-        registrationBean.addUrlPatterns("/*");
-        return registrationBean;
     }
 
     @Bean
