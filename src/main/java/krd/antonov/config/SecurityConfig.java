@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
         http.authorizeRequests()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/**").hasRole("DEVELOPER")
                 .and()
                 .formLogin()
